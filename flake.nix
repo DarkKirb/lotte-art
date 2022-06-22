@@ -115,7 +115,7 @@
           ./2022-04-20-cloverhare-mxbatty-me-train-maffsie-plush.jxl
           ./2022-05-02-anonfurryartist-giftart.jxl
           ./2022-05-05-sammythetanuki-lotteass.jxl
-          (./. + "/2022-06-13-󱦀󱦐󱥦󱤋󱤻󱤏󱦑-󱤌󱦖󱤻󱥦󱦓󱦀󱦐󱤫󱥅󱥭󱤋󱦑󱤧󱥬󱤏󱤂-󱥠.jxl")
+          ./2022-06-13-sammythetanuki-ijo-musi-suwi-pi-kije-lote-li-toki-insa-ala-sitelen.jxl
           ./2022-06-13-sammythetanuki-lotteplushnothoughts.jxl
           ./2022-06-13-sammythetanuki-lotteplushnothoughts-text.jxl
           ./2022-06-21-sammythetanuki-lotteplushpride.jxl
@@ -128,7 +128,14 @@
         }) srcs);
         pkgs-jxl = mapAttrs' (name: value: {
           name = "${name}-jxl";
-          inherit value;
+          value = pkgs.stdenvNoCC.mkDerivation {
+            name = "${name}.jxl";
+            version = extract-version name;
+            meta.artist = extract-artist name;
+            src = pkgs.emptyDirectory;
+            buildPhase = "true";
+            installPhase = "cp ${value} out";
+          };
         }) pkgs-base;
         pkgs-png = mapAttrs' (name: value: {
           name = "${name}-png";
