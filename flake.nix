@@ -127,11 +127,11 @@
           value = x;
         }) srcs);
         pkgs-jxl = mapAttrs' (name: value: {
-          name = "${name}.jxl";
+          name = "${name}-jxl";
           inherit value;
         }) pkgs-base;
         pkgs-png = mapAttrs' (name: value: {
-          name = "${name}.png";
+          name = "${name}-png";
           value = pkgs.stdenvNoCC.mkDerivation {
             name = "${name}.png";
             version = extract-version name;
@@ -147,7 +147,7 @@
         pkgs-jpg = mapAttrs' (name: value: {
           name = "${name}.jpg";
           value = pkgs.stdenvNoCC.mkDerivation {
-            name = "${name}.jpg";
+            name = "${name}-jpg";
             version = extract-version name;
             meta.artist = extract-artist name;
             nativeBuildInputs = [pkgs.imagemagick];
